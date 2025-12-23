@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  background: #0f172a;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+}
+
+.title {
+  background: #22c55e;
+  padding: 15px;
+  margin: 0;
+  font-size: 18px;
+}
+
+.mapa {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.nivel {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  font-size: 28px;
+  background: #22c55e;
+  color: white;
+  box-shadow: 0 6px #15803d;
+  cursor: pointer;
+}
+
+.nivel:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px #15803d;
+}
+
+.bloqueado {
+  background: #475569;
+  box-shadow: 0 6px #334155;
+  cursor: not-allowed;
+}
+
+.cofre {
+  font-size: 50px;
+}
