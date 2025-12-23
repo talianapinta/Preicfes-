@@ -1,132 +1,208 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>PreICFES – Lección pH</title>
+<meta charset="UTF-8">
+<title>PreICFES – pH</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fa;
-      margin: 0;
-      padding: 20px;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #f0fdf4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 
-    .card {
-      max-width: 500px;
-      background: white;
-      padding: 20px;
-      margin: auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+  .app {
+    width: 360px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    overflow: hidden;
+  }
 
-    h2 {
-      color: #2c3e50;
-    }
+  .header {
+    padding: 16px;
+    background: #58cc02;
+    color: white;
+    font-weight: bold;
+  }
 
-    button {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      background: #4CAF50;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+  .progress {
+    height: 8px;
+    background: #c8f7a1;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
 
-    button:hover {
-      background: #43a047;
-    }
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: white;
+    transition: width 0.4s;
+  }
 
-    .option {
-      background: #ecf0f1;
-      color: #2c3e50;
-    }
+  .content {
+    padding: 24px;
+    text-align: center;
+  }
 
-    .option.correct {
-      background: #2ecc71;
-      color: white;
-    }
+  h2 {
+    margin-top: 0;
+    color: #333;
+  }
 
-    .option.wrong {
-      background: #e74c3c;
-      color: white;
-    }
-  </style>
+  .option {
+    border: 2px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 14px;
+    margin: 12px 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .option:hover {
+    background: #f3f4f6;
+  }
+
+  .correct {
+    background: #58cc02;
+    color: white;
+    border-color: #58cc02;
+  }
+
+  .wrong {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+  }
+
+  .footer {
+    padding: 16px;
+    border-top: 1px solid #eee;
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 16px;
+    border: none;
+    background: #58cc02;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    background: #a3e635;
+  }
+</style>
 </head>
 
 <body>
 
-  <div class="card" id="app"></div>
+<div class="app">
+  <div class="header">
+    Lección pH
+    <div class="progress">
+      <div class="progress-bar" id="bar"></div>
+    </div>
+  </div>
 
-  <script>
-    const app = document.getElementById("app");
-    let step = 0;
+  <div class="content" id="app"></div>
 
-    const screens = [
+  <div class="footer">
+    <button id="nextBtn" onclick="next()" disabled>Continuar</button>
+  </div>
+</div>
 
-      `
-      <h2>Lección 1: pH</h2>
-      <p>El <strong>pH</strong> mide qué tan ácida o básica es una sustancia.</p>
-      <ul>
-        <li>pH &lt; 7 → Ácido</li>
-        <li>pH = 7 → Neutro</li>
-        <li>pH &gt; 7 → Básico</li>
-      </ul>
-      <button onclick="next()">Empezar</button>
-      `,
+<script>
+  const app = document.getElementById("app");
+  const bar = document.getElementById("bar");
+  const nextBtn = document.getElementById("nextBtn");
 
-      `
-      <h2>Pregunta 1</h2>
-      <p>Una sustancia con pH = 3 es:</p>
-      <button class="option" onclick="wrong(this)">Básica</button>
-      <button class="option" onclick="wrong(this)">Neutra</button>
-      <button class="option" onclick="correct(this)">Ácida</button>
-      `,
+  let step = 0;
+  let total = 3;
 
-      `
-      <h2>Pregunta 2</h2>
-      <p>¿Cuál es más básica?</p>
-      <button class="option" onclick="wrong(this)">pH 8</button>
-      <button class="option" onclick="correct(this)">pH 11</button>
-      <button class="option" onclick="wrong(this)">pH 6</button>
-      `,
+  const screens = [
+    {
+      question: "Una sustancia con pH = 3 es:",
+      options: [
+        { text: "Básica", correct: false },
+        { text: "Neutra", correct: false },
+        { text: "Ácida", correct: true }
+      ]
+    },
+    {
+      question: "¿Cuál es más básica?",
+      options: [
+        { text: "pH 8", correct: false },
+        { text: "pH 11", correct: true },
+        { text: "pH 6", correct: false }
+      ]
+    },
+    {
+      question: "Una solución con pH = 5 es:",
+      options: [
+        { text: "Neutra", correct: false },
+        { text: "Básica", correct: false },
+        { text: "Ácida", correct: true }
+      ]
+    }
+  ];
 
-      `
-      <h2>Pregunta 3</h2>
-      <p>Una solución con pH = 5 es:</p>
-      <button class="option" onclick="wrong(this)">Neutra</button>
-      <button class="option" onclick="wrong(this)">Básica</button>
-      <button class="option" onclick="correct(this)">Ácida</button>
-      `,
+  function render() {
+    nextBtn.disabled = true;
+    bar.style.width = (step / total) * 100 + "%";
 
-      `
-      <h2>🎉 ¡Lección completada!</h2>
-      <p>+10 XP</p>
-      <p>🔥 Racha diaria +1</p>
-      `
-    ];
-
-    function next() {
-      step++;
-      app.innerHTML = screens[step];
+    if (step >= total) {
+      app.innerHTML = `
+        <h2>🎉 ¡Lección completada!</h2>
+        <p>+10 XP</p>
+        <p>🔥 Racha +1</p>
+      `;
+      bar.style.width = "100%";
+      nextBtn.style.display = "none";
+      return;
     }
 
-    function correct(btn) {
-      btn.classList.add("correct");
-      setTimeout(next, 800);
+    let html = `<h2>${screens[step].question}</h2>`;
+
+    screens[step].options.forEach(opt => {
+      html += `
+        <div class="option" onclick="select(this, ${opt.correct})">
+          ${opt.text}
+        </div>
+      `;
+    });
+
+    app.innerHTML = html;
+  }
+
+  function select(el, correct) {
+    if (!nextBtn.disabled) return;
+
+    if (correct) {
+      el.classList.add("correct");
+    } else {
+      el.classList.add("wrong");
     }
 
-    function wrong(btn) {
-      btn.classList.add("wrong");
-    }
+    nextBtn.disabled = false;
+  }
 
-    app.innerHTML = screens[0];
-  </script>
+  function next() {
+    step++;
+    render();
+  }
+
+  render();
+</script>
 
 </body>
 </html>
