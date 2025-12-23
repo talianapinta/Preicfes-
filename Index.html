@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>PreICFES – Lección pH</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -10,6 +11,7 @@
       margin: 0;
       padding: 20px;
     }
+
     .card {
       max-width: 500px;
       background: white;
@@ -18,9 +20,11 @@
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
+
     h2 {
       color: #2c3e50;
     }
+
     button {
       display: block;
       width: 100%;
@@ -33,91 +37,96 @@
       font-size: 16px;
       cursor: pointer;
     }
+
     button:hover {
       background: #43a047;
     }
+
     .option {
       background: #ecf0f1;
       color: #2c3e50;
     }
+
     .option.correct {
       background: #2ecc71;
       color: white;
     }
+
     .option.wrong {
       background: #e74c3c;
       color: white;
     }
   </style>
 </head>
+
 <body>
 
-<div class="card" id="app"></div>
+  <div class="card" id="app"></div>
 
-<script>
-const app = document.getElementById("app");
+  <script>
+    const app = document.getElementById("app");
+    let step = 0;
 
-let step = 0;
+    const screens = [
 
-const screens = [
-  `
-  <h2>Lección 1: pH</h2>
-  <p>El <strong>pH</strong> mide qué tan ácida o básica es una sustancia.</p>
-  <ul>
-    <li>pH < 7 → Ácido</li>
-    <li>pH = 7 → Neutro</li>
-    <li>pH > 7 → Básico</li>
-  </ul>
-  <button onclick="next()">Empezar</button>
-  `,
+      `
+      <h2>Lección 1: pH</h2>
+      <p>El <strong>pH</strong> mide qué tan ácida o básica es una sustancia.</p>
+      <ul>
+        <li>pH &lt; 7 → Ácido</li>
+        <li>pH = 7 → Neutro</li>
+        <li>pH &gt; 7 → Básico</li>
+      </ul>
+      <button onclick="next()">Empezar</button>
+      `,
 
-  `
-  <h2>Pregunta 1</h2>
-  <p>Una sustancia con pH = 3 es:</p>
-  <button class="option" onclick="wrong(this)">Básica</button>
-  <button class="option" onclick="wrong(this)">Neutra</button>
-  <button class="option" onclick="correct(this)">Ácida</button>
-  `,
+      `
+      <h2>Pregunta 1</h2>
+      <p>Una sustancia con pH = 3 es:</p>
+      <button class="option" onclick="wrong(this)">Básica</button>
+      <button class="option" onclick="wrong(this)">Neutra</button>
+      <button class="option" onclick="correct(this)">Ácida</button>
+      `,
 
-  `
-  <h2>Pregunta 2</h2>
-  <p>¿Cuál es más básica?</p>
-  <button class="option" onclick="wrong(this)">pH 8</button>
-  <button class="option" onclick="correct(this)">pH 11</button>
-  <button class="option" onclick="wrong(this)">pH 6</button>
-  `,
+      `
+      <h2>Pregunta 2</h2>
+      <p>¿Cuál es más básica?</p>
+      <button class="option" onclick="wrong(this)">pH 8</button>
+      <button class="option" onclick="correct(this)">pH 11</button>
+      <button class="option" onclick="wrong(this)">pH 6</button>
+      `,
 
-  `
-  <h2>Pregunta 3</h2>
-  <p>Una solución con pH = 5 es:</p>
-  <button class="option" onclick="wrong(this)">Neutra</button>
-  <button class="option" onclick="wrong(this)">Básica</button>
-  <button class="option" onclick="correct(this)">Ácida</button>
-  `,
+      `
+      <h2>Pregunta 3</h2>
+      <p>Una solución con pH = 5 es:</p>
+      <button class="option" onclick="wrong(this)">Neutra</button>
+      <button class="option" onclick="wrong(this)">Básica</button>
+      <button class="option" onclick="correct(this)">Ácida</button>
+      `,
 
-  `
-  <h2>🎉 ¡Lección completada!</h2>
-  <p>+10 XP</p>
-  <p>🔥 Racha diaria +1</p>
-  `
-];
+      `
+      <h2>🎉 ¡Lección completada!</h2>
+      <p>+10 XP</p>
+      <p>🔥 Racha diaria +1</p>
+      `
+    ];
 
-function next() {
-  step++;
-  app.innerHTML = screens[step];
-}
+    function next() {
+      step++;
+      app.innerHTML = screens[step];
+    }
 
-function correct(btn) {
-  btn.classList.add("correct");
-  setTimeout(next, 800);
-}
+    function correct(btn) {
+      btn.classList.add("correct");
+      setTimeout(next, 800);
+    }
 
-function wrong(btn) {
-  btn.classList.add("wrong");
-}
-  
-app.innerHTML = screens[0];
-</script>
+    function wrong(btn) {
+      btn.classList.add("wrong");
+    }
+
+    app.innerHTML = screens[0];
+  </script>
 
 </body>
 </html>
