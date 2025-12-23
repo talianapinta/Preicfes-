@@ -1,207 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>PreICFES – pH</title>
-
-<style>
-  body {
-    margin: 0;
-    font-family: "Segoe UI", sans-serif;
-    background: #f0fdf4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-  .app {
-    width: 360px;
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    overflow: hidden;
-  }
-
-  .header {
-    padding: 16px;
-    background: #58cc02;
-    color: white;
-    font-weight: bold;
-  }
-
-  .progress {
-    height: 8px;
-    background: #c8f7a1;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 8px;
-  }
-
-  .progress-bar {
-    height: 100%;
-    width: 0%;
-    background: white;
-    transition: width 0.4s;
-  }
-
-  .content {
-    padding: 24px;
-    text-align: center;
-  }
-
-  h2 {
-    margin-top: 0;
-    color: #333;
-  }
-
-  .option {
-    border: 2px solid #e5e7eb;
-    border-radius: 14px;
-    padding: 14px;
-    margin: 12px 0;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s;
-  }
-
-  .option:hover {
-    background: #f3f4f6;
-  }
-
-  .correct {
-    background: #58cc02;
-    color: white;
-    border-color: #58cc02;
-  }
-
-  .wrong {
-    background: #ef4444;
-    color: white;
-    border-color: #ef4444;
-  }
-
-  .footer {
-    padding: 16px;
-    border-top: 1px solid #eee;
-  }
-
-  button {
-    width: 100%;
-    padding: 14px;
-    border-radius: 16px;
-    border: none;
-    background: #58cc02;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  button:disabled {
-    background: #a3e635;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>PreICFES</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="app">
-  <div class="header">
-    Lección pH
-    <div class="progress">
-      <div class="progress-bar" id="bar"></div>
-    </div>
-  </div>
+<h2 class="title">ETAPA 1 · Química</h2>
 
-  <div class="content" id="app"></div>
+<div class="mapa">
 
-  <div class="footer">
-    <button id="nextBtn" onclick="next()" disabled>Continuar</button>
-  </div>
+  <!-- Lección 1 -->
+  <button class="nivel" onclick="irALeccion('ph-leccion.html')">
+    ⭐
+  </button>
+
+  <!-- Lección 2 (bloqueada ejemplo) -->
+  <button class="nivel bloqueado">
+    🔒
+  </button>
+
+  <!-- Cofre -->
+  <div class="cofre">🎁</div>
+
 </div>
 
 <script>
-  const app = document.getElementById("app");
-  const bar = document.getElementById("bar");
-  const nextBtn = document.getElementById("nextBtn");
-
-  let step = 0;
-  let total = 3;
-
-  const screens = [
-    {
-      question: "Una sustancia con pH = 3 es:",
-      options: [
-        { text: "Básica", correct: false },
-        { text: "Neutra", correct: false },
-        { text: "Ácida", correct: true }
-      ]
-    },
-    {
-      question: "¿Cuál es más básica?",
-      options: [
-        { text: "pH 8", correct: false },
-        { text: "pH 11", correct: true },
-        { text: "pH 6", correct: false }
-      ]
-    },
-    {
-      question: "Una solución con pH = 5 es:",
-      options: [
-        { text: "Neutra", correct: false },
-        { text: "Básica", correct: false },
-        { text: "Ácida", correct: true }
-      ]
-    }
-  ];
-
-  function render() {
-    nextBtn.disabled = true;
-    bar.style.width = (step / total) * 100 + "%";
-
-    if (step >= total) {
-      app.innerHTML = `
-        <h2>🎉 ¡Lección completada!</h2>
-        <p>+10 XP</p>
-        <p>🔥 Racha +1</p>
-      `;
-      bar.style.width = "100%";
-      nextBtn.style.display = "none";
-      return;
-    }
-
-    let html = `<h2>${screens[step].question}</h2>`;
-
-    screens[step].options.forEach(opt => {
-      html += `
-        <div class="option" onclick="select(this, ${opt.correct})">
-          ${opt.text}
-        </div>
-      `;
-    });
-
-    app.innerHTML = html;
+  function irALeccion(pagina) {
+    window.location.href = pagina;
   }
-
-  function select(el, correct) {
-    if (!nextBtn.disabled) return;
-
-    if (correct) {
-      el.classList.add("correct");
-    } else {
-      el.classList.add("wrong");
-    }
-
-    nextBtn.disabled = false;
-  }
-
-  function next() {
-    step++;
-    render();
-  }
-
-  render();
 </script>
 
 </body>
